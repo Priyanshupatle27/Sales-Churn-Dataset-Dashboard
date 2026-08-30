@@ -1,0 +1,81 @@
+CREATE DATABASE churndb
+USE churndb
+
+select * from clean_churn_data
+
+
+Q1 - TOTAL CUSTOMERS
+select count(*) from clean_churn_data;
+
+Q2 - Total churn customers
+select count(*) from clean_churn_data
+where churn = 'yes'; 
+
+Q3 - Churn Rate
+ select
+round(
+sum(case when churn='yes' then 1 else 0 end)*100/count(*),2)
+as Churn_Rate
+from clean_churn_data;
+
+Q4 -  Average Tenure
+select avg(Tenure_Months)
+from clean_churn_data;
+
+Q5 -  Churn by contract type
+select contract_type,count(*) as customers
+from clean_churn_data
+group by contract_type;
+
+Q6 -  Churn by Internet Service
+Select Internet_service,
+count(*)
+from clean_churn_data
+group by Internet_service;
+
+Q7 -  Churn by State
+select state,
+count(*)
+from clean_churn_data
+where churn = 'Yes'
+Group by State
+Order by 2 desc;
+
+Q8 -  Payment wise Customers
+select Payment_Method,
+count(*)
+from clean_churn_data
+group by Payment_Method;
+
+Q9 -  Payment wise Customers
+
+Highest Revenue States
+Select state,
+sum(Total_charges) as State_charges
+from clean_churn_data
+group by state
+order by 2 desc;
+
+Q10 -  Average Charges by Contract
+Select Contract_Type,
+avg(Monthly_Charges) 
+from clean_churn_data
+group by Contract_Type;
+
+Q11 -  Senior Citizen Churn
+Select Senior_Citizen,
+count(*) 
+from clean_churn_data
+group by Senior_Citizen;
+
+Q11 - Top 10 High value Customers
+Select Customer_Name,
+Customer_Value
+From clean_churn_data
+order by Customer_Value DESC
+limit 10;
+
+Q12 - Customers Without Tech Support
+Select *
+From clean_churn_data
+where Tech_Support='No';
